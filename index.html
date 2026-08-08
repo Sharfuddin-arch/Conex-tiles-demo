@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conex Tiles - Innovation in Architecture</title>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== VIDEO BACKGROUND ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== SECTION BASE ===== */
+        section {
+            position: relative;
+            padding: 80px 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(196, 154, 108, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(196, 154, 108, 0.6);
+            }
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes borderGlow {
+            0%,
+            100% {
+                border-color: rgba(196, 154, 108, 0.3);
+                box-shadow: 0 0 20px rgba(196, 154, 108, 0.1);
+            }
+            50% {
+                border-color: rgba(196, 154, 108, 0.8);
+                box-shadow: 0 0 40px rgba(196, 154, 108, 0.3);
+            }
+        }
+
+        @keyframes floatSlow {
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(1deg);
+            }
+        }
+
+        @keyframes scalePulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes floatCard {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes menuFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        @keyframes menuLinkHover {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .animate-slide-left {
+            opacity: 0;
+            animation: slideLeft 0.8s ease forwards;
+        }
+
+        .animate-slide-right {
+            opacity: 0;
+            animation: slideRight 0.8s ease forwards;
+        }
+
+        /* ===== WHATSAPP FLOATING BUTTON ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #25D366;
+            color: #fff;
+            font-size: 2.5rem;
+            box-shadow: 0 4px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: float 3s ease-in-out infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15) rotate(-10deg);
+            box-shadow: 0 8px 50px rgba(37, 211, 102, 0.6);
+            color: #fff;
+        }
+
+        .whatsapp-float .tooltip {
+            position: absolute;
+            right: 80px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-float .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 8px solid rgba(0, 0, 0, 0.85);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+
+        .whatsapp-float:hover .tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .whatsapp-float .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #25D366;
+            animation: pulseRing 2s ease-out infinite;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(26, 26, 26, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid #c49a6c;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(10deg) scale(1.05);
+            box-shadow: 0 0 30px rgba(196, 154, 108, 0.4);
+        }
+
+        .logo span {
+            color: #c49a6c;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c49a6c;
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background: #fff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ===== STYLISH MOBILE MENU ===== */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 380px;
+            height: 100vh;
+            background: rgba(20, 20, 20, 0.97);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 40px 30px;
+            transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(196, 154, 108, 0.1);
+            box-shadow: -10px 0 60px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 30px;
+        }
+
+        .mobile-menu-header .menu-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .mobile-menu-header .menu-logo span {
+            color: #c49a6c;
+        }
+
+        .mobile-menu-close {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(196, 154, 108, 0.2);
+            border-color: #c49a6c;
+            transform: rotate(90deg);
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+
+        .mobile-menu-links li {
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.open .mobile-menu-links li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu.open .mobile-menu-links li:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+        .mobile-menu.open .mobile-menu-links li:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+        .mobile-menu.open .mobile-menu-links li:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+        .mobile-menu.open .mobile-menu-links li:nth-child(4) {
+            transition-delay: 0.2s;
+        }
+        .mobile-menu.open .mobile-menu-links li:nth-child(5) {
+            transition-delay: 0.25s;
+        }
+        .mobile-menu.open .mobile-menu-links li:nth-child(6) {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-menu-links li a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-links li a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(196, 154, 108, 0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-menu-links li a:hover {
+            color: #fff;
+            transform: translateX(8px);
+            background: rgba(196, 154, 108, 0.08);
+        }
+
+        .mobile-menu-links li a:hover::before {
+            opacity: 1;
+        }
+
+        .mobile-menu-links li a i {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(196, 154, 108, 0.12);
+            color: #c49a6c;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-links li a:hover i {
+            background: rgba(196, 154, 108, 0.25);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .mobile-menu-links li a .link-text {
+            flex: 1;
+        }
+
+        .mobile-menu-links li a .link-arrow {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: #c49a6c;
+        }
+
+        .mobile-menu-links li a:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-menu-links li a .link-number {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .mobile-menu-footer {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: auto;
+        }
+
+        .mobile-menu-footer .social-icons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .mobile-menu-footer .social-icons a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu-footer .social-icons a:hover {
+            background: #c49a6c;
+            color: #fff;
+            border-color: #c49a6c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(196, 154, 108, 0.3);
+        }
+
+        .mobile-menu-footer .menu-contact {
+            text-align: center;
+            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+
+        .mobile-menu-footer .menu-contact a {
+            color: #c49a6c;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-footer .menu-contact a:hover {
+            color: #d4a87a;
+        }
+
+        /* ===== HERO ===== */
+        #hero {
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 30px;
+        }
+
+        #hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.2s forwards;
+        }
+
+        #hero h1 span {
+            color: #c49a6c;
+        }
+
+        #hero p {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 20px auto 0;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.5s forwards;
+        }
+
+        /* ===== FOUNDER - EXPANDING BOX ===== */
+        #founder {
+            min-height: 60vh;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 60px;
+        }
+
+        .founder-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 800px;
+            width: 100%;
+            opacity: 0;
+            animation: expandWidth 1.2s ease forwards;
+            transform-origin: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .founder-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 60px rgba(196, 154, 108, 0.15);
+        }
+
+        .founder-card .logo-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid #c49a6c;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(196, 154, 108, 0.1);
+            box-shadow: none;
+            animation: floatSlow 4s ease-in-out infinite;
+            transition: transform 0.4s ease;
+        }
+
+        .founder-card .logo-circle:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .founder-card .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .founder-card blockquote {
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .founder-card blockquote::before {
+            content: '"';
+            font-size: 4rem;
+            color: #c49a6c;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            opacity: 0.3;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .founder-card blockquote::after {
+            content: '"';
+            font-size: 4rem;
+            color: #c49a6c;
+            position: absolute;
+            bottom: -40px;
+            right: -10px;
+            opacity: 0.3;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .founder-card .name {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #c49a6c;
+        }
+
+        .founder-card .title {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== PRODUCTS SECTION - ALL 10 PRODUCTS ===== */
+        #products {
+            min-height: 100vh;
+            padding: 80px 5%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            cursor: pointer;
+            group: true;
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: zoomIn 0.6s ease forwards;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: rgba(196, 154, 108, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(196, 154, 108, 0.05);
+        }
+
+        .product-card .product-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-card .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-card .product-image .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-card:hover .product-image .overlay {
+            opacity: 1;
+        }
+
+        .product-card .product-image .overlay .quick-view {
+            padding: 10px 28px;
+            background: #c49a6c;
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .product-card:hover .product-image .overlay .quick-view {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .product-card .product-image .overlay .quick-view:hover {
+            background: #a87d54;
+            transform: scale(1.05);
+        }
+
+        .product-card .product-info {
+            padding: 20px 25px 25px;
+            text-align: center;
+        }
+
+        .product-card .product-info .product-tag {
+            display: inline-block;
+            padding: 4px 14px;
+            background: rgba(196, 154, 108, 0.2);
+            color: #c49a6c;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .product-card .product-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover .product-info h3 {
+            color: #c49a6c;
+        }
+
+        .product-card .product-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .product-card .product-info .product-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 24px;
+            border: 1px solid rgba(196, 154, 108, 0.3);
+            border-radius: 50px;
+            color: #c49a6c;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .product-card .product-info .product-link:hover {
+            background: #c49a6c;
+            color: #fff;
+            border-color: #c49a6c;
+            transform: translateX(5px);
+        }
+
+        .product-card .product-info .product-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .product-card .product-info .product-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .product-card .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 14px;
+            background: linear-gradient(135deg, #c49a6c, #a87d54);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(196, 154, 108, 0.3);
+        }
+
+        /* ===== SERVICES - LARGE CARDS WITH BACKGROUND IMAGES ===== */
+        #services {
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            position: relative;
+            border-radius: 24px;
+            padding: 50px 35px;
+            min-height: 380px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(60px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 24px;
+            z-index: 1;
+            transition: background 0.5s ease, backdrop-filter 0.5s ease;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, transparent, rgba(196, 154, 108, 0.1), transparent);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(2px);
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-card * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(196, 154, 108, 0.1);
+            border-color: rgba(196, 154, 108, 0.3);
+            animation: scalePulse 2s ease-in-out infinite;
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            color: #c49a6c;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, color 0.4s ease;
+        }
+
+        .service-card:hover i {
+            transform: scale(1.15) rotate(-5deg);
+            color: #d4a87a;
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: color 0.4s ease;
+        }
+
+        .service-card:hover h3 {
+            color: #c49a6c;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 500px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+            transition: color 0.4s ease;
+        }
+
+        .service-card:hover p {
+            color: #ffffff;
+        }
+
+        .service-card .service-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #c49a6c, #a87d54);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.4s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card .service-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .service-card .service-btn:hover::before {
+            left: 100%;
+        }
+
+        .service-card .service-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 154, 108, 0.5);
+        }
+
+        /* ===== GALLERY SLIDER ===== */
+        #gallery {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-slider {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-slide.active {
+            opacity: 1;
+        }
+
+        .gallery-slide .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gallery-slide .slide-overlay h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease 0.5s;
+        }
+
+        .gallery-slide.active .slide-overlay h2 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-slide .slide-overlay p {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.8s;
+        }
+
+        .gallery-slide.active .slide-overlay p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: rgba(196, 154, 108, 0.6);
+            border-color: #c49a6c;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-btn.prev {
+            left: 20px;
+        }
+
+        .slider-btn.next {
+            right: 20px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .slider-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .slider-dots span.active {
+            background: #c49a6c;
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        /* ===== BANNER - WITH BACKGROUND IMAGE ===== */
+        #banner {
+            min-height: 50vh;
+            text-align: center;
+            padding: 80px 5%;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        #banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+
+        #banner * {
+            position: relative;
+            z-index: 1;
+        }
+
+        #banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeScale 1s ease 0.3s forwards;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #banner .btn-banner {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 16px 50px;
+            background: #c49a6c;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.4s;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #banner .btn-banner:hover {
+            background: #a87d54;
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(196, 154, 108, 0.4);
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            min-height: 100vh;
+            padding: 80px 5%;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            opacity: 0;
+            animation: slideLeft 1s ease 0.3s forwards;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .contact-form:hover {
+            border-color: rgba(196, 154, 108, 0.3);
+            box-shadow: 0 0 40px rgba(196, 154, 108, 0.05);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #c49a6c;
+            box-shadow: 0 0 30px rgba(196, 154, 108, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-form input:hover,
+        .contact-form textarea:hover {
+            border-color: rgba(196, 154, 108, 0.4);
+        }
+
+        .contact-form textarea {
+            height: 140px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #c49a6c, #a87d54);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .contact-form button:hover::before {
+            left: 100%;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(196, 154, 108, 0.3);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            opacity: 0;
+            animation: slideRight 1s ease 0.5s forwards;
+        }
+
+        .contact-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            padding: 18px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .contact-info .info-item:hover {
+            border-color: rgba(196, 154, 108, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 0 30px rgba(196, 154, 108, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-info .info-item i {
+            color: #c49a6c;
+            font-size: 1.3rem;
+            width: 30px;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-info .info-item:hover i {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .contact-info .info-item p {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .map-wrapper {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            height: 300px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.8s forwards;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .map-wrapper:hover {
+            border-color: rgba(196, 154, 108, 0.3);
+            box-shadow: 0 0 40px rgba(196, 154, 108, 0.05);
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== PRE-FOOTER ===== */
+        #pre-footer {
+            min-height: auto;
+            padding: 60px 5% 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .pre-footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .pre-footer-grid h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #c49a6c;
+        }
+
+        .pre-footer-grid ul {
+            list-style: none;
+        }
+
+        .pre-footer-grid ul li {
+            margin-bottom: 10px;
+        }
+
+        .pre-footer-grid ul li a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pre-footer-grid ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #c49a6c;
+            transition: width 0.3s ease;
+        }
+
+        .pre-footer-grid ul li a:hover {
+            color: #c49a6c;
+        }
+
+        .pre-footer-grid ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 20px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        footer .socials {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 12px;
+        }
+
+        footer .socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        footer .socials a:hover {
+            background: #c49a6c;
+            color: #fff;
+            transform: translateY(-4px) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(196, 154, 108, 0.3);
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* ===== IMAGE CONTAINER HELPER ===== */
+        .img-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .map-wrapper {
+                height: 250px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .logo img {
+                height: 45px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+
+            .mobile-menu-overlay {
+                display: block;
+            }
+
+            /* Mobile-friendly services */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 10px;
+            }
+
+            .service-card {
+                min-height: 300px;
+                padding: 40px 25px;
+                border-radius: 20px;
+            }
+
+            .service-card:hover {
+                transform: translateY(-8px) scale(1.02);
+            }
+
+            .service-card i {
+                font-size: 2.8rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.4rem;
+            }
+
+            .service-card p {
+                font-size: 0.95rem;
+                padding: 0 5px;
+            }
+
+            .service-card .service-btn {
+                padding: 10px 28px;
+                font-size: 0.9rem;
+            }
+
+            /* Mobile-friendly products */
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 0 5px;
+            }
+
+            .product-card .product-image {
+                height: 160px;
+            }
+
+            .product-card .product-info {
+                padding: 15px 18px 20px;
+            }
+
+            .product-card .product-info h3 {
+                font-size: 1rem;
+            }
+
+            .product-card .product-info p {
+                font-size: 0.8rem;
+            }
+
+            .product-card .product-info .product-link {
+                padding: 6px 18px;
+                font-size: 0.75rem;
+            }
+
+            /* Mobile founder card */
+            .founder-card {
+                padding: 30px 20px;
+                margin: 0 10px;
+                border-radius: 20px;
+            }
+
+            .founder-card .logo-circle {
+                width: 100px;
+                height: 100px;
+            }
+
+            .founder-card blockquote {
+                font-size: 1rem;
+                padding: 0 5px;
+            }
+
+            .founder-card blockquote::before,
+            .founder-card blockquote::after {
+                font-size: 2.5rem;
+            }
+
+            .founder-card blockquote::before {
+                top: -10px;
+                left: 0;
+            }
+
+            .founder-card blockquote::after {
+                bottom: -25px;
+                right: 0;
+            }
+
+            .pre-footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .slider-btn.prev {
+                left: 10px;
+            }
+            .slider-btn.next {
+                right: 10px;
+            }
+
+            #banner {
+                padding: 60px 5%;
+                min-height: 40vh;
+            }
+
+            .contact-form {
+                padding: 24px;
+                margin: 0 5px;
+            }
+
+            .contact-info .info-item {
+                padding: 14px 18px;
+            }
+
+            .contact-info .info-item:hover {
+                transform: translateX(4px);
+            }
+
+            /* Reduce spacing between hero and founder */
+            #hero {
+                padding-bottom: 10px;
+                min-height: 90vh;
+            }
+
+            #founder {
+                padding-top: 10px;
+                padding-bottom: 40px;
+                min-height: 50vh;
+            }
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                font-size: 2rem;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .whatsapp-float .tooltip {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 4%;
+                min-height: auto;
+            }
+
+            #hero {
+                min-height: 100vh;
+                padding-top: 80px;
+                padding-bottom: 0;
+            }
+
+            #hero h1 {
+                font-size: clamp(2.2rem, 8vw, 3rem);
+            }
+
+            .pre-footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .gallery-slider {
+                height: 70vh;
+            }
+
+            .service-card {
+                min-height: 260px;
+                padding: 30px 20px;
+            }
+
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .service-card i {
+                font-size: 2.4rem;
+            }
+
+            .founder-card {
+                padding: 25px 15px;
+            }
+
+            .founder-card .logo-circle {
+                width: 85px;
+                height: 85px;
+            }
+
+            .founder-card blockquote {
+                font-size: 0.95rem;
+            }
+
+            #banner h2 {
+                font-size: clamp(1.8rem, 6vw, 2.5rem);
+            }
+
+            #banner .btn-banner {
+                padding: 14px 35px;
+                font-size: 1rem;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .contact-info .info-item {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .product-card .product-image {
+                height: 200px;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .mobile-menu {
+                width: 92%;
+                max-width: 100%;
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo img {
+                height: 38px;
+            }
+
+            .service-card {
+                min-height: 220px;
+                padding: 25px 15px;
+            }
+
+            .service-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .service-card i {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+
+            .service-card p {
+                font-size: 0.85rem;
+            }
+
+            .service-card .service-btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+                margin-top: 12px;
+            }
+
+            .founder-card .logo-circle {
+                width: 70px;
+                height: 70px;
+            }
+
+            .product-card .product-image {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== VIDEO BACKGROUND ===== -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="video/bg1.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+    <a href="https://wa.me/923332223878?text=Hello%20Conex%20Tiles!%20I%20would%20like%20to%20know%20more%20about%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <span class="pulse-ring"></span>
+        <i class="fab fa-whatsapp"></i>
+        <span class="tooltip">Chat with us on WhatsApp!</span>
+    </a>
+
+    <!-- ===== HEADER ===== -->
+    <header id="header">
+        <div class="logo">
+            <img src="pictures/logo.png" alt="Conex Tiles Logo" />
+            Conex <span>Tiles</span>
+        </div>
+        <nav id="nav">
+            <a href="#hero">Home</a>
+            <a href="#founder">About</a>
+            <a href="#products">Products</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- ===== MOBILE MENU OVERLAY ===== -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+    <!-- ===== STYLISH MOBILE MENU ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="menu-logo">Conex <span>Tiles</span></div>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <ul class="mobile-menu-links">
+            <li>
+                <a href="#hero">
+                    <i class="fas fa-home"></i>
+                    <span class="link-text">Home</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#founder">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="link-text">About</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#products">
+                    <i class="fas fa-th-large"></i>
+                    <span class="link-text">Products</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#services">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span class="link-text">Services</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#gallery">
+                    <i class="fas fa-images"></i>
+                    <span class="link-text">Gallery</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#contact">
+                    <i class="fas fa-envelope"></i>
+                    <span class="link-text">Contact</span>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="mobile-menu-footer">
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="menu-contact">
+                <a href="tel:+923332223878">+92 333 2223878</a> &bull;
+                <a href="mailto:info@conextiles.com">info@conextiles.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+        <h1>Innovation in <span>Architecture</span></h1>
+        <p>Transform your outdoor spaces with premium landscape design, 3D visualization, and high-quality materials.</p>
+    </section>
+
+    <!-- ===== FOUNDER - EXPANDING BOX ===== -->
+    <section id="founder">
+        <div class="founder-card">
+            <div class="logo-circle">
+                <img src="pictures/logo.png" alt="Conex Tiles Logo" />
+            </div>
+            <blockquote>
+                "As the founder of Conex Tiles, I am passionate about creating transformative outdoor spaces that harmonize beauty and functionality. Our commitment to quality and innovation drives us to deliver exceptional results for every project we undertake."
+            </blockquote>
+            <div class="name">Arsalan Iftikhar</div>
+            <div class="title">Founder &amp; CEO</div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS SECTION - ALL 10 PRODUCTS ===== -->
+    <section id="products">
+        <h2 class="section-title">Our Premium <span style="color:#c49a6c;">Products</span></h2>
+        <p class="section-subtitle">Discover our range of high-quality outdoor materials designed for durability and style.</p>
+        <div class="products-grid">
+            <!-- Product 1: Heat Insulation Tiles -->
+            <div class="product-card" data-delay="0">
+                <div class="product-image">
+                    <img src="pictures/heat comp tiles.jpg" alt="Heat Insulation Tiles" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🔥 Best Seller</span>
+                    <h3>Heat Insulation Tiles</h3>
+                    <p>Reduce energy costs with our premium insulation tiles</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">New</span>
+            </div>
+
+            <!-- Product 2: Artificial Grass -->
+            <div class="product-card" data-delay="100">
+                <div class="product-image">
+                    <img src="pictures/grass.jpg" alt="Artificial Grass" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🌿 Eco-Friendly</span>
+                    <h3>Artificial Grass</h3>
+                    <p>Low-maintenance evergreen beauty for any landscape</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Product 3: Wooden Floors -->
+            <div class="product-card" data-delay="200">
+                <div class="product-image">
+                    <img src="pictures/wooden.jpg" alt="Wooden Floors" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">✨ Premium</span>
+                    <h3>Wooden Floors</h3>
+                    <p>Warmth and sophistication with premium wooden flooring</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">Luxury</span>
+            </div>
+
+            <!-- Product 4: Fountains -->
+            <div class="product-card" data-delay="300">
+                <div class="product-image">
+                    <img src="pictures/fountain.jpg" alt="Fountains" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">💧 Water Feature</span>
+                    <h3>Fountains</h3>
+                    <p>Elegant water features for lasting beauty</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Product 5: Wood Plastic Composite -->
+            <div class="product-card" data-delay="400">
+                <div class="product-image">
+                    <img src="pictures/wood plastic.jpg" alt="Wood Plastic Composite" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">💪 Durable</span>
+                    <h3>Wood Plastic Composite</h3>
+                    <p>Water-resistant WPC for outdoor decking and fencing</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Product 6: PVC Indoor Panels -->
+            <div class="product-card" data-delay="500">
+                <div class="product-image">
+                    <img src="pictures/pvc panels.jpg" alt="PVC Indoor Panels" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🏠 Interior</span>
+                    <h3>PVC Indoor Panels</h3>
+                    <p>Sleek, modern panels for stunning interior walls</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">Modern</span>
+            </div>
+
+            <!-- Product 7: Elevation Tiles -->
+            <div class="product-card" data-delay="600">
+                <div class="product-image">
+                    <img src="pictures/elevated tiles.jpg" alt="Elevation Tiles" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🏗️ Exterior</span>
+                    <h3>Elevation Tiles</h3>
+                    <p>Stylish elevation tiles for stunning exterior facades</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">Trending</span>
+            </div>
+
+            <!-- Product 8: Waterfall -->
+            <div class="product-card" data-delay="700">
+                <div class="product-image">
+                    <img src="pictures/waterfall.jpg" alt="Waterfall" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🌊 Serenity</span>
+                    <h3>Waterfall</h3>
+                    <p>Create serene environments with exquisite waterfall features</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Product 9: Driveway Tiles -->
+            <div class="product-card" data-delay="800">
+                <div class="product-image">
+                    <img src="pictures/driveway.jpg" alt="Driveway Tiles" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🚗 Heavy-Duty</span>
+                    <h3>Driveway Tiles</h3>
+                    <p>Strengthen and beautify driveways with durable tiles</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">Strong</span>
+            </div>
+
+            <!-- Product 10: SPC Floors -->
+            <div class="product-card" data-delay="900">
+                <div class="product-image">
+                    <img src="pictures/spc floor.jpg" alt="SPC Floors" />
+                    <div class="overlay">
+                        <a href="/products" class="quick-view">View Details</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">🏢 Modern</span>
+                    <h3>SPC Floors</h3>
+                    <p>Superior resilience and modern aesthetics with SPC flooring</p>
+                    <a href="/products" class="product-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <span class="product-badge">Premium</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES - LARGE CARDS WITH BACKGROUND IMAGES ===== -->
+    <section id="services">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Crafted to bring your vision to life with precision and creativity.</p>
+        <div class="services-grid">
+            <div class="service-card" data-delay="0" style="background-image: url('pictures/outdoor.jpg');">
+                <i class="fas fa-tree"></i>
+                <h3>Landscape Architecture</h3>
+                <p>Transform outdoor spaces with expert landscape design, creating aesthetically pleasing and functional environments.</p>
+                <a href="#contact" class="service-btn">Book a Service</a>
+            </div>
+            <div class="service-card" data-delay="100" style="background-image: url('pictures/3d.jpg');">
+                <i class="fas fa-cube"></i>
+                <h3>3D Designing &amp; Execution</h3>
+                <p>Visualize your projects with precision 3D designs, ensuring flawless execution and stunning results.</p>
+                <a href="#contact" class="service-btn">Book a Service</a>
+            </div>
+            <div class="service-card" data-delay="200" style="background-image: url('pictures/material.jpg');">
+                <i class="fas fa-truck"></i>
+                <h3>Outdoor Material Supply</h3>
+                <p>Source top-quality outdoor materials, ensuring durability and style for all your landscape needs.</p>
+                <a href="#contact" class="service-btn">Book a Service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY SLIDER ===== -->
+    <section id="gallery">
+        <div class="gallery-slider" id="gallerySlider">
+            <!-- Slide 1 -->
+            <div class="gallery-slide active" style="background-image: url('pictures/bed1.jpg');">
+                <div class="slide-overlay">
+                    <h2>Elegant Outdoor Spaces</h2>
+                    <p>Premium tiles that redefine your landscape</p>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="gallery-slide" style="background-image: url('pictures/kitchen1.jpg');">
+                <div class="slide-overlay">
+                    <h2>Modern 3D Designs</h2>
+                    <p>Visualize your dream project before execution</p>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="gallery-slide" style="background-image: url('pictures/lounge1.jpg');">
+                <div class="slide-overlay">
+                    <h2>Durable &amp; Sustainable</h2>
+                    <p>Materials built to last and inspire</p>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="gallery-slide" style="background-image: url('pictures/rest1.jpg');">
+                <div class="slide-overlay">
+                    <h2>Water Features &amp; More</h2>
+                    <p>Add elegance with fountains and waterfalls</p>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <button class="slider-btn prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </section>
+
+    <!-- ===== BANNER - WITH BACKGROUND IMAGE ===== -->
+    <section id="banner" style="background-image: url('pictures/banner.png');">
+        <h2>Transform Your Outdoors with Premium Tile Services</h2>
+        <a href="#contact" class="btn-banner">Get a Free Quote</a>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">We'd love to hear from you! Reach out to start your next landscaping project.</p>
+        <div class="contact-wrapper">
+            <div class="contact-form">
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Your Email" required />
+                    <input type="tel" placeholder="Your Phone" />
+                    <textarea placeholder="Your Message..." required></textarea>
+                    <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+92 333 2223878</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@conextiles.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Lahore, Pakistan</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d217481.78353123537!2d74.16545732470047!3d31.483545700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190483e58107e9%3A0xc23abe6ccc7e2462!2sLahore%2C%20Pakistan!5e0!3m2!1sen!2s!4v1710000000000" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRE-FOOTER ===== -->
+    <section id="pre-footer">
+        <div class="pre-footer-grid">
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#founder">About</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="/products">Heat Insulation Tiles</a></li>
+                    <li><a href="/products">Artificial Grass</a></li>
+                    <li><a href="/products">Wooden Floors</a></li>
+                    <li><a href="/products">Fountains</a></li>
+                    <li><a href="/products">WPC</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Landscape Architecture</a></li>
+                    <li><a href="#services">3D Designing</a></li>
+                    <li><a href="#services">Material Supply</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><a href="tel:+923332223878">+92 333 2223878</a></li>
+                    <li><a href="mailto:info@conextiles.com">info@conextiles.com</a></li>
+                    <li>Lahore, Pakistan</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2026 Conex Tiles. All rights reserved.</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== HAMBURGER MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        function openMobileMenu() {
+            hamburger.classList.add('active');
+            mobileMenu.classList.add('open');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // ===== HEADER SCROLL EFFECT =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== PRODUCTS SCROLL ANIMATION =====
+        const productCards = document.querySelectorAll('.product-card');
+
+        const revealProductCards = () => {
+            productCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const delay = parseInt(card.dataset.delay) || 0;
+                if (rect.top < window.innerHeight - 80) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, delay);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealProductCards);
+        window.addEventListener('load', revealProductCards);
+
+        // ===== SERVICES SCROLL ANIMATION =====
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        const revealServiceCards = () => {
+            serviceCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const delay = parseInt(card.dataset.delay) || 0;
+                if (rect.top < window.innerHeight - 80) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, delay);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealServiceCards);
+        window.addEventListener('load', revealServiceCards);
+
+        // ===== GALLERY SLIDER =====
+        const slides = document.querySelectorAll('.gallery-slide');
+        const dotsContainer = document.getElementById('sliderDots');
+        let currentSlide = 0;
+        let slideInterval;
+
+        slides.forEach((_, index) => {
+            const dot = document.createElement('span');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('span');
+
+        function goToSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + slides.length) % slides.length;
+            goToSlide(prev);
+        }
+
+        document.getElementById('nextSlide').addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        document.getElementById('prevSlide').addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        slideInterval = setInterval(nextSlide, 5000);
+
+        // ===== CONTACT FORM =====
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // ===== SMOOTH SCROLL FOR NAV LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== WHATSAPP BUTTON SCROLL HIDE/SHOW =====
+        const whatsappBtn = document.querySelector('.whatsapp-float');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                whatsappBtn.style.opacity = '1';
+                whatsappBtn.style.transform = 'scale(1)';
+            } else {
+                whatsappBtn.style.opacity = '0.8';
+                whatsappBtn.style.transform = 'scale(0.9)';
+            }
+        });
+
+        console.log('🚀 Conex Tiles website loaded successfully!');
+    </script>
+</body>
+</html>
